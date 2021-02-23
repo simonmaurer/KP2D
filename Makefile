@@ -23,11 +23,11 @@ DOCKER_OPTS := \
             -e XAUTHORITY \
             -e NVIDIA_DRIVER_CAPABILITIES=all \
 			-v ~/.aws:/root/.aws \
-			-v /root/.ssh:/root/.ssh \
+			-v ~/.ssh:/root/.ssh \
 			-v ~/.cache:/root/.cache \
-			-v /data:/data \
+			-v /raid/spmatteo/simomaur/data:/data \
 			-v /dev/null:/dev/raw1394 \
-			-v /tmp:/tmp \
+			-v /raid/spmatteo/simomaur/tmp:/tmp \
 			-v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
 			-v /var/run/docker.sock:/var/run/docker.sock \
 			-v ${PWD}:${WORKSPACE} \
