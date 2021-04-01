@@ -92,9 +92,9 @@ def main(file):
     train_dataset, train_loader = setup_datasets_and_dataloaders(config.datasets)
     printcolor('({}) length: {}'.format("Train", len(train_dataset)))
 
-    model = model.cuda()
+    #model = model.cuda()
     optimizer = optim.Adam(model.optim_params)
-    compression = hvd.Compression.none  # or hvd.Compression.fp16
+    #compression = hvd.Compression.none  # or hvd.Compression.fp16
     #optimizer = hvd.DistributedOptimizer(optimizer, named_parameters=model.named_parameters(), compression=compression)
 
     # Synchronize model weights from all ranks
@@ -155,7 +155,8 @@ def evaluation(config, completed_epoch, model, summary):
 
     use_color = config.model.params.use_color
 
-    if rank() == 0:
+    #if rank() == 0:
+    if True:
         eval_shape = config.datasets.augmentation.image_shape[::-1]
         eval_params = [{'res': eval_shape, 'top_k': 300}]
         for params in eval_params:

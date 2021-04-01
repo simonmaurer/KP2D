@@ -187,20 +187,21 @@ class KeypointNetwithIOLoss(torch.nn.Module):
             self.keypoint_net = KeypointResnet(with_drop=with_drop)
         else:
             raise NotImplemented('Keypoint net type not supported {}'.format(keypoint_net_type))
-        self.keypoint_net = self.keypoint_net.cuda()
+        #self.keypoint_net = self.keypoint_net.cuda()
         self.add_optimizer_params('KeypointNet', self.keypoint_net.parameters(), keypoint_net_learning_rate)
 
         self.with_io = with_io
         self.io_net = None
         if self.with_io:
             self.io_net = InlierNet(blocks=4)
-            self.io_net = self.io_net.cuda()
+            #self.io_net = self.io_net.cuda()
             self.add_optimizer_params('InlierNet', self.io_net.parameters(),  keypoint_net_learning_rate)
 
         self.train_metrics = {}
         self.vis = {}
-        if torch.cuda.current_device() == 0:
-            print('KeypointNetwithIOLoss:: with io {} with descriptor loss {}'.format(self.with_io, self.descriptor_loss))
+        #if torch.cuda.current_device() == 0:
+        #    print('KeypointNetwithIOLoss:: with io {} with descriptor loss {}'.format(self.with_io, self.descriptor_loss))
+        print('KeypointNetwithIOLoss:: with io {} with descriptor loss {}'.format(self.with_io, self.descriptor_loss))
 
     def add_optimizer_params(self, name, params, lr):
         self.optim_params.append(
@@ -365,7 +366,8 @@ class KeypointNetwithIOLoss(torch.nn.Module):
                     loss_2d += self.keypoint_loss_weight * io_loss
 
 
-            if debug and torch.cuda.current_device() == 0:
+            #if debug and torch.cuda.current_device() == 0:
+            if debug:
                 # Generate visualization data
                 vis_ori = (input_img[0].permute(1, 2, 0).detach().cpu().clone().squeeze() )
                 vis_ori -= vis_ori.min()
