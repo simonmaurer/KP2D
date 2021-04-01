@@ -253,7 +253,7 @@ def train(config, train_loader, model, optimizer, epoch, summary):
 
     pbar = tqdm(enumerate(train_loader, 0),
                 unit=' images',
-                unit_scale=config.datasets.train.batch_size * hvd.size(),
+                unit_scale=config.datasets.train.batch_size,
                 total=len(train_loader),
                 smoothing=0)
     running_loss = running_recall = grad_norm_disp = grad_norm_pose = grad_norm_keypoint = 0.0
