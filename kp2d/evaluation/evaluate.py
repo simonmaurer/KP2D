@@ -37,11 +37,15 @@ def evaluate_keypoint_net(data_loader, keypoint_net, output_shape=(320, 240), to
     with torch.no_grad():
         for i, sample in tqdm(enumerate(data_loader), desc="evaluate_keypoint_net"):
             if use_color:
-                image = to_color_normalized(sample['image'].cuda())
-                warped_image = to_color_normalized(sample['warped_image'].cuda())
+                #image = to_color_normalized(sample['image'].cuda())
+                #warped_image = to_color_normalized(sample['warped_image'].cuda())
+                image = to_color_normalized(sample['image'])
+                warped_image = to_color_normalized(sample['warped_image'])
             else:
-                image = to_gray_normalized(sample['image'].cuda())
-                warped_image = to_gray_normalized(sample['warped_image'].cuda())
+                #image = to_gray_normalized(sample['image'].cuda())
+                #warped_image = to_gray_normalized(sample['warped_image'].cuda())
+                image = to_gray_normalized(sample['image'])
+                warped_image = to_gray_normalized(sample['warped_image'])
 
             score_1, coord_1, desc1 = keypoint_net(image)
             score_2, coord_2, desc2 = keypoint_net(warped_image)
